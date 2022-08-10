@@ -40,7 +40,7 @@ const startApp = async () => {
 	 * the results to get the first page, and then we're using the first page to show the result
 	 * @param {number} [page=1] - number = 1
 	 */
-	const getUsers = async (page: number = 1): Promise<void> => {
+	const getUsers = async ({ page }: { page: number }): Promise<void> => {
 		if (page === 1) {
 			prevBtn.setAttribute('disabled', 'true');
 		} else {
@@ -50,6 +50,7 @@ const startApp = async () => {
 		const data = await response.json();
 		const { results } = data;
 		const firstPage = results[0][page];
+
 		showResult(firstPage);
 
 		pageLabel.innerHTML = `Showing Page ${page}`;
@@ -60,7 +61,7 @@ const startApp = async () => {
   in the page number. */
 	nextBtn.addEventListener('click', () => {
 		pageNumber = pageNumber + 1;
-		getUsers(pageNumber);
+		getUsers({ page: pageNumber });
 	});
 
 	/* It's adding an event listener to the previous button, and when the previous button is clicked, it's
@@ -68,12 +69,10 @@ const startApp = async () => {
   in the page number. */
 	prevBtn.addEventListener('click', () => {
 		pageNumber = pageNumber - 1;
-		getUsers(pageNumber);
+		getUsers({ page: pageNumber });
 	});
 
-	console.log(pageNumber);
-
-	getUsers();
+	getUsers({ page: 1 });
 };
 
 document.addEventListener('DOMContentLoaded', startApp);
