@@ -29,6 +29,11 @@ const startApp = async () => {
 	};
 
 	const getUsers = async (page: number = 1): Promise<void> => {
+		if (page === 1) {
+			prevBtn.setAttribute('disabled', 'true');
+		} else {
+			prevBtn.removeAttribute('disabled');
+		}
 		const response: Response = await fetch(`https://randomapi.com/api/8csrgnjw?key=LEIX-GF3O-AG7I-6J84&page=${page}`);
 		const data = await response.json();
 		const { results } = data;
@@ -37,8 +42,6 @@ const startApp = async () => {
 		showResult(firstPage);
 
 		pageLabel.innerHTML = `Showing Page ${page}`;
-
-		// });
 	};
 
 	nextBtn.addEventListener('click', () => {
