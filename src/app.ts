@@ -5,6 +5,7 @@ const startApp = async () => {
 	const pageLabel = document.querySelector('[data-pageview]')!;
 	let pageNumber: number = 1;
 
+	/* It's defining the shape of the data that we're going to be getting back from the API. */
 	interface IUser {
 		id: string;
 		age: number;
@@ -12,6 +13,11 @@ const startApp = async () => {
 		row: number;
 	}
 
+	/**
+	 * It takes an array of users, loops through them, and then pushes the output to a new array
+	 * @param {IUser[]} users - IUser[] - this is the array of users that we're going to be looping
+	 * through.
+	 */
 	const showResult = (users: IUser[]): void => {
 		let newUsers: any = [];
 
@@ -28,6 +34,12 @@ const startApp = async () => {
 		container.innerHTML = newUsers.join('');
 	};
 
+	/**
+	 * We're using the fetch API to make a request to the randomapi.com API, and then we're using the
+	 * response to get the data, and then we're using the data to get the results, and then we're using
+	 * the results to get the first page, and then we're using the first page to show the result
+	 * @param {number} [page=1] - number = 1
+	 */
 	const getUsers = async (page: number = 1): Promise<void> => {
 		if (page === 1) {
 			prevBtn.setAttribute('disabled', 'true');
@@ -38,17 +50,22 @@ const startApp = async () => {
 		const data = await response.json();
 		const { results } = data;
 		const firstPage = results[0][page];
-		// firstPage.map((user: IUser) => {
 		showResult(firstPage);
 
 		pageLabel.innerHTML = `Showing Page ${page}`;
 	};
 
+	/* It's adding an event listener to the next button, and when the next button is clicked, it's
+  going to increment the page number by 1, and then it's going to call the getUsers function and pass
+  in the page number. */
 	nextBtn.addEventListener('click', () => {
 		pageNumber = pageNumber + 1;
 		getUsers(pageNumber);
 	});
 
+	/* It's adding an event listener to the previous button, and when the previous button is clicked, it's
+  going to decrement the page number by 1, and then it's going to call the getUsers function and pass
+  in the page number. */
 	prevBtn.addEventListener('click', () => {
 		pageNumber = pageNumber - 1;
 		getUsers(pageNumber);
