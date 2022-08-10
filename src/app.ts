@@ -16,7 +16,7 @@ const startApp = async () => {
 
 		users.forEach((user) => {
 			const output = `
-        <tr data-${user.row}>
+        <tr data-entryid="${user.id}">
           <td>${user.row}</td>
           <td>${user.gender}</td>
           <td>${user.age}</td>
