@@ -2,6 +2,7 @@ const startApp = async () => {
 	const container: HTMLElement = document.querySelector('[data-sink]')!;
 	const nextBtn: HTMLElement = document.querySelector('[data-nextbtn]')!;
 	const prevBtn = document.querySelector('[data-prevbtn]')!;
+	const pageLabel = document.querySelector('[data-pageview]')!;
 	let pageNumber: number = 1;
 
 	interface IUser {
@@ -34,6 +35,9 @@ const startApp = async () => {
 		const firstPage = results[0][page];
 		// firstPage.map((user: IUser) => {
 		showResult(firstPage);
+
+		pageLabel.innerHTML = `Showing Page ${page}`;
+
 		// });
 	};
 
