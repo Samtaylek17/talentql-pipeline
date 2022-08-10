@@ -12,20 +12,19 @@ const startApp = async () => {
 	}
 
 	const showResult = (users: IUser[]): void => {
-		let newUsers = users;
+		let newUsers: any = [];
 
-		newUsers.map((user) => {
-			let output: string = `
-			    <tr>
-			      <td>${user.row}</td>
-			      <td>${user.gender}</td>
-			      <td>${user.age}</td>
-			    </tr>
-			  `;
-			container.innerHTML += output;
+		users.forEach((user) => {
+			const output = `
+        <tr data-${user.row}>
+          <td>${user.row}</td>
+          <td>${user.gender}</td>
+          <td>${user.age}</td>
+        </tr>
+      `;
+			newUsers.push(output);
 		});
-
-		// console.log(output);
+		container.innerHTML = newUsers.join('');
 	};
 
 	const getUsers = async (page: number = 1): Promise<void> => {
@@ -47,6 +46,8 @@ const startApp = async () => {
 		pageNumber = pageNumber - 1;
 		getUsers(pageNumber);
 	});
+
+	console.log(pageNumber);
 
 	getUsers();
 };
