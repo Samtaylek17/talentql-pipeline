@@ -3,6 +3,8 @@ const startApp = async () => {
 	const nextBtn: HTMLElement = document.querySelector('[data-nextbtn]')!;
 	const prevBtn = document.querySelector('[data-prevbtn]')!;
 	const pageLabel = document.querySelector('[data-pageview]')!;
+
+	/* It's defining the page number as 1. */
 	let pageNumber: number = 1;
 
 	/* It's defining the shape of the data that we're going to be getting back from the API. */
